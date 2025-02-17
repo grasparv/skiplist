@@ -107,15 +107,13 @@ func (l *Skiplist[T]) link(a, b *node[T]) {
 func (l *Skiplist[T]) unlink(a *node[T]) {
 	left := a.prev
 	right := a.next
-	if left == nil && right == nil {
-		return
+	if left != nil && right != nil {
+		left.next = right
+		right.prev = left
 	} else if left != nil && right == nil {
 		left.next = nil
 	} else if left == nil && right != nil {
 		right.prev = nil
-	} else {
-		left.next = right
-		right.prev = left
 	}
 }
 
