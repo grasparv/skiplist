@@ -1,14 +1,17 @@
 package skiplist
 
 type searchResult[T any] struct {
-	// prev points to the node to the left of the result if it was
-	// was not found, or at the top of the column
+	// prev points to the node to the left of the result if it was was not
+	// found, or at the top of the column so that during deletion we can
+	// advance down and remove the full column.
 	prev *node[T]
 
 	// result points to a node if a result was found
 	result *node[T]
 
-	// descends contains a history of each node that we walked down from on previous levels
+	// descends contains a history of each node that we walked down from on
+	// previous levels so that we can insert next's for higher levels in case
+	// we build a taller column.
 	descends []*node[T]
 }
 
